@@ -1,6 +1,65 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "assigneesFromCodeOwners": true,
+  "baseBranches": ["main"],
+  "commitMessagePrefix": "[renovate] ",
+  "dependencyDashboardAutoclose": false,
+  "enabledManagers": ["npm", "github-actions", "pre-commit"],
   "extends": [
-    "config:recommended"
-  ]
+    ":assignee(@Bergbrains)",
+    ":dependencyDashboardApproval",
+    ":preserveSemverRanges",
+    ":rebaseStalePrs",
+    ":semanticCommits",
+    "config:best-practices",
+    "group:recommended"
+  ],
+  "labels": ["Renovate[bot]"],
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "packageRules": [
+    {
+      "groupName": "Rollup and plugins",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["/^@rollup//", "/^rollup$/"]
+    },
+    {
+      "groupName": "ESLint and prettier config",
+      "matchPackageNames": ["eslint-config-prettier", "/^@eslint//", "/^eslint$/"],
+      "matchManagers": ["npm"]
+    },
+    {
+      "groupName": "Development dependencies (npm/yarn)",
+      "matchDepTypes": ["devDependencies"],
+      "matchManagers": ["npm"],
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "ignoreTests": true
+    },
+    {
+      "groupName": "Application dependencies (npm/yarn)",
+      "matchDepTypes": ["dependencies"],
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"]
+    },
+    {
+      "groupName": "GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "groupName": "pre-commit hooks",
+      "matchManagers": ["pre-commit"],
+      "automerge": true,
+      "platformAutomerge": true
+    }
+  ],
+  "prCreation": "immediate",
+  "schedule": ["every weekend"],
+  "timezone": "America/New_York",
+  "vulnerabilityAlerts": {
+    "enabled": true
+  }
 }
