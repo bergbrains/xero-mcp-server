@@ -3,7 +3,9 @@
   "assigneesFromCodeOwners": true,
   "baseBranchPatterns": ["main"],
   "commitMessagePrefix": "[renovate] ",
-  "dependencyDashboardAutoclose": false,
+  "dependencyDashboard": {
+    "autoclose": false
+  },
   "enabledManagers": ["npm", "github-actions", "pre-commit"],
   "extends": [
     ":assignee(@Bergbrains)",
